@@ -5,15 +5,13 @@ const rootDir = path.dirname(require.main.filename);
 
 const router = express.Router();
 
-router.get('/home', (req, res)=>{
+router.get('/', (req, res)=>{
     res.sendFile(path.join(rootDir, 'views', 'home.html'));
 })
 
-router.post('/home', (req, res)=>{
-    res.redirect('/home');
+router.post('/', (req, res)=>{
+    res.redirect('/');
 })
-
-
 
 
 module.exports = router;

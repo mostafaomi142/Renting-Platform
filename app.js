@@ -5,6 +5,7 @@ const rootDir = path.dirname(require.main.filename);
 
 const app = express();
 
+
 const loginRoutes = require(path.join(rootDir, 'routes', 'login'));
 const signupRoutes = require(path.join(rootDir, 'routes', 'signup'));
 const homeRoutes = require(path.join(rootDir, 'routes', 'home'));

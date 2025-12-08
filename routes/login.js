@@ -10,9 +10,8 @@ const router = express.Router();
 
 router.get('/login', (req, res)=>{
     res.sendFile(path.join(rootDir,'views', 'login.html'));
-})
+});
 
 router.post('/login', login);
-
 
 module.exports = router;
