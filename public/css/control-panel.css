@@ -1,0 +1,76 @@
+/* ===== control-panel.css ===== */
+
+.market-page {
+    max-width: 1200px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Header */
+.header-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #e9ecef;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 12px;
+}
+
+.header-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* Nav */
+.market-nav {
+    display: flex;
+    gap: 15px;
+}
+
+/* Sections */
+.market-grid {
+    background-color: #f8f9fa;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Cards inside sections */
+.market-grid .card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Forms */
+section input,
+section select {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 10px auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .market-grid .card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}

@@ -3,8 +3,8 @@ const express = require("express");
 const path = require("path");
 const rootDir = path.dirname(require.main.filename);
 
-const { login } = require('../controllers/register');
-const { signup } = require('../controllers/register');
+const { login } = require('../controllers/auth');
+const { signup } = require('../controllers/auth');
 
 const router = express.Router();
 

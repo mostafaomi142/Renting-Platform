@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>profile - Renting Platform</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/control-panel.css" />
+</head>
+
+<body>
+  <div class="container market-page">
+    <header class="header-box">
+      <h2 class="header-title">Renting Platform</h2>
+      <nav class="market-nav" style="height: 30px">
+        <label class="label">Name</label>
+        <label class="label">Gmail</label>
+        <a href="/" class="btn">Home</a>
+      </nav>
+    </header>
+    <section>
+      <form action="/controlPanel" method="POST">
+        <input type="text" name="name" placeholder="Enter the product's name" required />
+        <input type="number" name="price" placeholder="Enter the product's price" required />
+
+        <select type="text" name="category" required>
+          <option value="">Select category</option>
+          <option value="Construction Tools">Construction Tools</option>
+          <option value="Travel & Camping">Travel & Camping</option>
+          <option value="Garden">Garden</option>
+          <option value="Party">Party</option>
+        </select>
+
+        <input
+  type="url"
+  name="photoUrl"
+  placeholder="Enter the product's photo"
+  required
+/>
+
+
+        <button type="submit" class="btn">submit</button>
+      </form>
+    </section>
+
+    <!-- <section class="market-grid">
+      <h2>My Rentings</h2>
+      <div class="card">
+        <h3>Product 1</h3>
+        <a href="#" class="btn">View</a>
+      </div>
+    </section> -->
+    <section class="market-grid">
+      <h2>My Products</h2>
+
+      <% if (products.length===0) { %>
+        <p>No products found</p>
+        <% } %>
+
+          <% products.forEach(product=> { %>
+            <div class="card">
+              <h3>
+                <%= product.name %>
+              </h3>
+              <p>$<%= product.price %>
+              </p>
+              <p>
+                <%= product.category %>
+              </p>
+              <img src="<%= product.photoUrl %>" width="150" />
+            </div>
+            <% }) %>
+    </section>
+
+  </div>
+</body>
+
+</html>

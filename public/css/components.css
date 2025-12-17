@@ -1,0 +1,50 @@
+/* ===== components.css ===== */
+
+/* Buttons */
+.btn {
+    text-decoration: none;
+    color: white;
+    background-color: #007BFF;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.label {
+    display: flex;              /* make label a flex container */
+    align-items: center;        /* vertical center of content inside label */
+    justify-content: center;    /* optional: horizontal center */
+    height: 100%;               /* take full height of parent */
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Inputs & selects */
+input,
+select {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+    transition: 0.3s;
+}
+
+input:focus,
+select:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
+}
+
+/* Cards */
+.card {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
