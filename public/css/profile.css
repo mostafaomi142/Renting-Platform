@@ -1,0 +1,121 @@
+/* ======================================
+   PROFILE PAGE - aligned with home.css
+====================================== */
+
+/* Container adjustment */
+.market-page {
+    max-width: 1200px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Header box */
+.header-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #e9ecef; /* same as home categories bar */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 12px;
+}
+
+/* Header title */
+.header-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* Header nav */
+.market-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.market-nav label {
+    font-weight: 500;
+    color: #333;
+}
+
+/* Buttons inside header nav */
+.market-nav .btn {
+    text-decoration: none;
+    color: white;
+    background-color: #007BFF;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    transition: 0.3s;
+    font-size: 0.9rem;
+}
+
+.market-nav .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Market grids (sections) */
+.market-grid {
+    background-color: #f8f9fa;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Section titles */
+.market-grid h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Cards inside sections */
+.card {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Buttons inside cards */
+.card .btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .header-box {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .market-nav {
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
+    .market-grid {
+        padding: 10px 15px;
+    }
+
+    .card {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
