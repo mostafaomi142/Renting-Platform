@@ -1,15 +1,14 @@
 const express = require("express");
-
-const path = require("path");
-const rootDir = path.dirname(require.main.filename);
-
 const router = express.Router();
+const productController = require("../controllers/product");
 
-const { addProducts, getProducts } = require('../controllers/Product');
 
-router.get('/controlPanel', getProducts);
-router.post('/controlPanel', addProducts);
+router.get("/", productController.getHomeProducts);   // the the products in home page.
 
-router.post('/controlPanel', addProducts);
+
+router.post("/add-product", productController.addProduct);  //store product information from the control panel.
+
+
+router.get("/controlPanel", productController.getControlPanelProducts);  // user products in control panel.
 
 module.exports = router;

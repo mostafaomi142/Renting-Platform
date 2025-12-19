@@ -14,18 +14,23 @@ module.exports = class User {
     );
   }
 
+  
   isEmailFound() {
-    return db
-      .execute(
-        "SELECT EXISTS(SELECT 1 FROM user WHERE email = ? AND password = ?) AS found",
-        [this.email, this.password]
-      )
-      .then(([rows]) => {
-        return rows[0].found === 1;
-      })
-      .catch((err) => {
-        console.error("Database error in isEmailFound:", err);
-        return false; // return false if any error occurs
-      });
+    return db.execute(
+      "SELECT * FROM user WHERE email = ? AND password = ?",
+      [this.email, this.password]
+    ).then(([rows]) => {
+      if (rows.length > 0) {
+        return rows[0]; 
+      }
+      return null;
+    });
+  }
+
+  static fetchById(userId) {
+    return db.execute(
+      "SELECT * FROM user WHERE id = ?",
+      [userId]
+    );
   }
 };

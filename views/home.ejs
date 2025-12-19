@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Renting Platform</title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/home.css" />
+</head>
+
+<body>
+
+    <header class="main-header">
+        <h1>Renting Platform</h1>
+        <nav class="main-nav">
+            <% if (isLoggedIn) { %>
+                <a href="/controlPanel" class="btn">Control Panel</a>
+                <% } else { %>
+                    <a href="/login" class="btn">Login</a>
+                    <% } %>
+        </nav>
+    </header>
+
+    <nav class="categories">
+        <a href="/">Construction Tools</a>
+        <a href="/">Camping and Travel</a>
+        <a href="/">Party</a>
+        <a href="/">Garden</a>
+    </nav>
+
+    <main>
+        <h2>Available Products</h2>
+
+        <div class="product-grid">
+            <% if (products.length===0) { %>
+                <p>No products found.</p>
+                <% } else { %>
+                    <% products.forEach(product=> { %>
+                        <div class="product-card">
+                            <img src="<%= product.photoUrl %>" alt="<%= product.name %>" width="150" />
+                            <h3>
+                                <%= product.name %>
+                            </h3>
+                            <p>Category: <%= product.category %>
+                            </p>
+                            <p>Price: $<%= product.price %>
+                            </p>
+                            <a href="/product/<%= product.id %>">View Details</a>
+                        </div>
+                        <% }) %>
+                            <% } %>
+        </div>
+    </main>
+
+</body>
+
+</html>
