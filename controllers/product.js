@@ -5,7 +5,10 @@ const User = require("../model/auth");
 exports.getHomeProducts = (req, res) => {
   Product.fetchAll()
     .then(([products]) => {
-      res.render("home", { products });
+      res.render("home", { 
+        products,
+        isLoggedIn: !!req.session.userId 
+      });
     })
     .catch(err => console.log(err));
 };
@@ -15,7 +18,14 @@ exports.addProduct = (req, res) => {
   const userId = req.session.userId;
   if (!userId) return res.redirect("/login");
 
-  const { name, price, category, photoUrl } = req.body;
+  const { name, price, category } = req.body;
+  
+  // Require file upload
+  if (!req.file) {
+    return res.status(400).send('Please upload a photo');
+  }
+  
+  const photoUrl = `/uploads/${req.file.filename}`;
 
   const product = new Product(name, price, category, photoUrl, userId);
   product.save()
