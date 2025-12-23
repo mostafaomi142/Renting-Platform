@@ -12,61 +12,105 @@
 
 <body>
   <div class="container market-page">
+
+    <!-- HEADER -->
     <header class="header-box">
-      <h2 class="header-title">Renting Platform</h2>
-      <nav class="market-nav" style="height: 30px">
-        <label class="label"><%= user.name%></label>
-        <label class="label"><%= user.email%></label>
+      <h1 class="header-title">Renting Platform</h1>
+      <nav class="market-nav">
+        <span class="user-badge"><%= user.name %></span>
+        <span class="user-email"><%= user.email %></span>
         <a href="/" class="btn">Home</a>
       </nav>
     </header>
-    <section>
-      <form action="/controlPanel" method="POST" enctype="multipart/form-data">
-        <input type="text" name="name" placeholder="Enter the product's name" required />
-        <input type="number" name="price" placeholder="Enter the product's price" required />
 
-        <select type="text" name="category" required>
-          <option value="">Select category</option>
-          <option value="Construction Tools">Construction Tools</option>
-          <option value="Travel & Camping">Travel & Camping</option>
-          <option value="Garden">Garden</option>
-          <option value="Party">Party</option>
-        </select>
-
-        <label>Upload Photo:</label>
-        <input type="file" name="photo" accept="image/*" required />
-
-        <button type="submit" class="btn">submit</button>
+    <!-- PRODUCT UPLOAD FORM -->
+    <section class="form-section">
+      <h2>Add New Product</h2>
+      <form action="/controlPanel" method="POST" enctype="multipart/form-data" class="upload-form">
+        <div class="form-group">
+          <input type="text" name="name" placeholder="Enter the product's name" required />
+        </div>
+        <div class="form-group">
+          <input type="number" name="price" placeholder="Enter the product's price" required />
+        </div>
+        <div class="form-group">
+          <select name="category" required>
+            <option value="">Select category</option>
+            <option value="Construction Tools">Construction Tools</option>
+            <option value="Travel & Camping">Travel & Camping</option>
+            <option value="Garden">Garden</option>
+            <option value="Party">Party</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="file-label">Upload Photo:</label>
+          <input type="file" name="photo" accept="image/*" required />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Submit Product</button>
       </form>
     </section>
-    <!-- <section class="market-grid">
-      <h2>My Rentings</h2>
-      <div class="card">
-        <h3>Product 1</h3>
-        <a href="#" class="btn">View</a>
-      </div>
-    </section> -->
+
+    <!-- PRODUCT LIST -->
     <section class="products-section">
       <h2>My Products</h2>
 
-      <% if (products.length===0) { %>
+      <% if (products.length === 0) { %>
+
         <p class="no-products">No products found</p>
-        <% } else { %>
-          <div class="products-grid">
-            <% products.forEach(product=> { %>
-              <div class="product-card">
-                <div class="product-image">
-                  <img src="<%= product.photoUrl %>" alt="<%= product.name %>" />
-                </div>
-                <div class="product-info">
-                  <h3 class="product-name"><%= product.name %></h3>
-                  <p class="product-category"><%= product.category %></p>
-                  <p class="product-price">$<%= product.price %></p>
-                </div>
-              </div>
-            <% }) %>
+
+      <% } else { %>
+
+      <div class="products-grid">
+        <% products.forEach(product => { %>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="<%= product.photoUrl %>" alt="<%= product.name %>" />
           </div>
-        <% } %>
+
+          <div class="product-info">
+            <h3 class="product-name"><%= product.name %></h3>
+            <p class="product-category"><%= product.category %></p>
+            <p class="product-price">$<%= product.price %></p>
+            <div class="status-badge">
+              <% if (product.rentingStatus === 0) { %>
+                <span class="status available">Available</span>
+              <% } else if (product.rentingStatus === 1) { %>
+                <span class="status pending">Pending</span>
+              <% } else { %>
+                <span class="status unavailable">Rented</span>
+              <% } %>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="product-actions" style="flex-direction: column; gap: 10px;">
+              <form action="/update-product/<%= product.id %>" method="POST" class="edit-form" style="display: grid; gap: 8px;">
+                <input type="text" name="name" value="<%= product.name %>" required />
+                <input type="number" name="price" value="<%= product.price %>" required />
+                <input type="text" name="category" value="<%= product.category %>" required />
+                <button type="submit" class="btn btn-edit">Save</button>
+              </form>
+
+              <form action="/delete-product/<%= product.id %>" method="POST" class="delete-form">
+                <button type="submit" class="btn btn-delete">Delete</button>
+              </form>
+
+              <% if (product.rentingStatus === 1) { %>
+                <form action="/rent/approve/<%= product.id %>" method="POST" class="delete-form">
+                  <button type="submit" class="btn btn-edit">Accept</button>
+                </form>
+                <form action="/rent/deny/<%= product.id %>" method="POST" class="delete-form">
+                  <button type="submit" class="btn btn-delete">Deny</button>
+                </form>
+              <% } %>
+            </div>
+          </div>
+        </div>
+
+        <% }) %>
+      </div>
+
+      <% } %>
     </section>
 
   </div>

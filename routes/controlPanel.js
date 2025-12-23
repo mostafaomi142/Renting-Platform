@@ -12,4 +12,9 @@ router.post("/controlPanel", upload.single('photo'), productController.addProduc
 
 router.get("/controlPanel", productController.getControlPanelProducts);  // user products in control panel.
 
+router.post("/update-product/:id", productController.updateProduct);
+router.post("/delete-product/:id", productController.deleteProduct);
+router.post("/rent/approve/:productId", productController.approveRent);
+router.post("/rent/deny/:productId", productController.denyRent);
+
 module.exports = router;

@@ -1,15 +1,13 @@
-const User = require('../model/auth');
+const User = require('../model/User');
 
 // Signup controller
 exports.signup = (req, res, next) => {
-  const { name, email, password } = req.body;
-  console.log('signup data: ', req.body);
+  const { name, email, password, role } = req.body;
 
-  const user = new User(name, email, password);
-  console.log('user object data: ', user);
+  const user = new User(name, email, password, role || 'user');
 
   user.save()
-    .then(() => res.redirect('/'))
+    .then(() => res.redirect('/login'))
     .catch(err => console.log(err));
 };
 
@@ -18,12 +16,17 @@ exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   const user = new User(null, email, password); // create a temp user object
-  user.isEmailFound()
+  user.isUserFound()
     .then(foundUser => { // return the full user object from DB
       if (foundUser) {
         req.session.isLoggedIn = true;
         req.session.userId = foundUser.id; // store user ID
-        res.redirect('/');
+        req.session.userRole = foundUser.role; // store user role
+        if (foundUser.role === 'owner') {
+          res.redirect('/controlPanel');
+        } else {
+          res.redirect('/');
+        }
       } else {
         res.send("Email or password not found");
       }

@@ -23,9 +23,11 @@ app.use(session({
 const authRoutes = require('./routes/auth');
 const indexRoutes = require('./routes/index');
 const controlPanelRoutes = require('./routes/controlPanel');
+const product = require('./routes/product');
 
 app.use(authRoutes);
 app.use(indexRoutes);
 app.use(controlPanelRoutes);
+app.use(product);
 
 app.listen(3000);

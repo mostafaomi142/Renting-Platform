@@ -8,27 +8,22 @@
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/home.css" />
+
 </head>
 
 <body>
 
     <header class="main-header">
         <h1>Renting Platform</h1>
+        <br>
         <nav class="main-nav">
             <% if (isLoggedIn) { %>
-                <a href="/controlPanel" class="btn">Control Panel</a>
+                <a href="/logout" class="btn">Logout</a>
                 <% } else { %>
                     <a href="/login" class="btn">Login</a>
                     <% } %>
         </nav>
     </header>
-
-    <nav class="categories">
-        <a href="/">Construction Tools</a>
-        <a href="/">Camping and Travel</a>
-        <a href="/">Party</a>
-        <a href="/">Garden</a>
-    </nav>
 
     <main>
         <h2>Available Products</h2>
@@ -47,12 +42,85 @@
                             </p>
                             <p>Price: $<%= product.price %>
                             </p>
-                            <a href="/product/<%= product.id %>">View Details</a>
+                            <% if (product.rentingStatus===0) { %>
+                                <p style="color: green;">Available</p>
+                            <% } else if (product.rentingStatus===1) { %>
+                                <p style="color: orange;">Pending</p>
+                            <% } else { %>
+                                <p style="color: red;">Rented</p>
+                            <% } %>
+                            <a href="#" class="btn" onclick='openModal(event, JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(product)) %>")))'>View</a>
                         </div>
                         <% }) %>
                             <% } %>
         </div>
+
+        <!-- Product Details Modal -->
+        <div id="productModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalProductName"></h2>
+                    <button class="close-btn" onclick="closeModal()">&times;</button>
+                </div>
+                <img id="modalImage" class="modal-image" src="" alt="product">
+                <div class="modal-info">
+                    <div class="info-row">
+                        <span class="info-label">Category</span>
+                        <span class="info-value" id="modalCategory"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Price</span>
+                        <span class="info-value price-highlight" id="modalPrice"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Owner</span>
+                        <span class="info-value" id="modalOwner"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Contact</span>
+                        <span class="info-value" id="modalContact"></span>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <a href="#" class="btn" id="contactBtn">Contact Owner</a>
+                    <form id="rentForm" method="POST" action="">
+                        <button class="btn" type="submit" style="background-color: #28a745;" id="rentBtn">Rent</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
+
+    <script>
+        function openModal(event, product) {
+            event.preventDefault();
+            document.getElementById('modalProductName').textContent = product.name;
+            document.getElementById('modalImage').src = product.photoUrl;
+            document.getElementById('modalCategory').textContent = product.category;
+            document.getElementById('modalPrice').textContent = '$' + product.price;
+            document.getElementById('modalOwner').textContent = product.userName || product.userId;
+            document.getElementById('modalContact').textContent = product.userEmail || 'Not Provided';
+            document.getElementById('contactBtn').href = 'mailto:' + (product.userEmail || '');
+            const rentForm = document.getElementById('rentForm');
+            rentForm.action = `/rent/${product.id}`;
+            // Hide rent button for owners
+            const rentBtn = document.getElementById('rentBtn');
+            const userRole = '<%= typeof userRole !== "undefined" ? userRole : "user" %>';
+            rentBtn.style.display = userRole === 'owner' ? 'none' : 'block';
+            document.getElementById('productModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('show');
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
 
 </body>
 

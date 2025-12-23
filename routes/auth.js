@@ -3,8 +3,7 @@ const express = require("express");
 const path = require("path");
 const rootDir = path.dirname(require.main.filename);
 
-const { login } = require('../controllers/auth');
-const { signup } = require('../controllers/auth');
+const { login, signup} = require('../controllers/auth');
 
 const router = express.Router();
 
@@ -21,6 +20,11 @@ router.get('/signup', (req, res)=>{
 });
 
 router.post('/signup', signup);
+
+router.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
 
 module.exports = router;
 
