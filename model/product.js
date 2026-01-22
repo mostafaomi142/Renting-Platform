@@ -61,4 +61,10 @@ module.exports = class Product {
   static setRentingStatus(id, status){
     return db.execute("UPDATE product SET rentingStatus = ? WHERE id = ?", [status, id]);
   }
+
+  static getCat(category){
+    return db.execute("SELECT * FROM product Where category = ?", [category]);
+  }
 };
+
+

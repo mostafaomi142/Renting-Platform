@@ -26,7 +26,19 @@
     </header>
 
     <main>
-        <h2>Available Products</h2>
+
+        <section class="categories-bar">
+            <div class="categories-label">Categories</div>
+
+            <form action="/category" method="POST" class="categories-list">
+                <button class="category-chip is-active" type="submit" name="category" value="all">All</button>
+                <button class="category-chip" type="submit" name="category" value="Electronics">Electronics</button>
+                <button class="category-chip" type="submit" name="category" value="Construction">Construction Tools</button>
+                <button class="category-chip" type="submit" name="category" value="Party">Party</button>
+                <button class="category-chip" type="submit" name="category" value="Garden">Garden</button>
+                <button class="category-chip" type="submit" name="category" value="Camping">Camping</button>
+            </form>
+        </section>
 
         <div class="product-grid">
             <% if (products.length===0) { %>
@@ -44,12 +56,13 @@
                             </p>
                             <% if (product.rentingStatus===0) { %>
                                 <p style="color: green;">Available</p>
-                            <% } else if (product.rentingStatus===1) { %>
-                                <p style="color: orange;">Pending</p>
-                            <% } else { %>
-                                <p style="color: red;">Rented</p>
-                            <% } %>
-                            <a href="#" class="btn" onclick='openModal(event, JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(product)) %>")))'>View</a>
+                                <% } else if (product.rentingStatus===1) { %>
+                                    <p style="color: orange;">Pending</p>
+                                    <% } else { %>
+                                        <p style="color: red;">Rented</p>
+                                        <% } %>
+                                            <a href="#" class="btn"
+                                                onclick='openModal(event, JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(product)) %>")))'>View</a>
                         </div>
                         <% }) %>
                             <% } %>
@@ -114,7 +127,7 @@
             document.getElementById('productModal').classList.remove('show');
         }
 
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             const modal = document.getElementById('productModal');
             if (event.target === modal) {
                 closeModal();

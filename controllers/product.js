@@ -102,3 +102,9 @@ exports.denyRent = (req, res) => {
     .then(() => res.redirect("/controlPanel"))
     .catch(err => console.log(err));
 };
+
+exports.getCategoryProducts = (req, res) => {
+  const category = req.body.category
+  console.log(category);
+  Product.getCat(category);
+};

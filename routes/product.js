@@ -24,4 +24,14 @@ router.post("/rent/:productId", (req, res) => {
     productController.requestRent(req, res);
 });
 
+router.post('/category', (req, res) => {
+    productController.getCategoryProducts(req, res);
+}
+);
+
+router.get('/category', (req, res)=>{
+    res.render("productDetails", { product: product[0] });
+})
+
+
 module.exports = router;
